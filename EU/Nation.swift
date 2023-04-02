@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Nation {
+struct Nation: Codable {
     var country: String
     var capital: String
     var ueseEuro: Bool
