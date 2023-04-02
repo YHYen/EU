@@ -12,21 +12,25 @@ class CountryDetailTableViewController: UITableViewController {
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var capitalTextField: UITextField!
+    @IBOutlet weak var euroSwitch: UISwitch!
     
-    var countryName: String!
+    var nation: Nation!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if countryName == nil {
-            countryName = ""
+        if nation == nil {
+            nation = Nation(country: "", capital: "", ueseEuro: false)
         }
         
-        countryTextField.text = countryName
+        
+        countryTextField.text = nation.country
+        capitalTextField.text = nation.capital
+        euroSwitch.isOn = nation.ueseEuro
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        countryName = countryTextField.text
+        nation = Nation(country: countryTextField.text!, capital: capitalTextField.text!, ueseEuro: euroSwitch.isOn)
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {

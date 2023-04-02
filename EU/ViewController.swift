@@ -10,7 +10,10 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var editBarButton: UIBarButtonItem!
+    @IBOutlet weak var addBarButton: UIBarButtonItem!
     
+
     var members = ["Austria",
                   "Belgium",
                   "Bulgaria",
@@ -38,14 +41,76 @@ class ViewController: UIViewController {
                   "Slovenia",
                   "Spain",
                   "Sweden",
-                  "United Kingdom"
-]
+                  "United Kingdom"]
+    var capitals = ["Vienna",
+                    "Brussels",
+                    "Sofia",
+                    "Zagreb",
+                    "Nicosia",
+                    "Prague",
+                    "Copenhagen",
+                    "Tallinn",
+                    "Helsinki",
+                    "Paris",
+                    "Berlin",
+                    "Athens",
+                    "Budapest",
+                    "Dublin",
+                    "Rome",
+                    "Riga",
+                    "Vilnius",
+                    "Luxembourg (city)",
+                    "Valetta",
+                    "Amsterdam",
+                    "Warsaw",
+                    "Lisbon",
+                    "Bucharest",
+                    "Bratislava",
+                    "Ljubljana",
+                    "Madrid",
+                    "Stockholm",
+                    "London"]
+    var usesEuro = [true,
+                    true,
+                    false,
+                    false,
+                    true,
+                    false,
+                    false,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    false,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    true,
+                    false,
+                    true,
+                    false,
+                    true,
+                    true,
+                    true,
+                    false,
+                    false]
+    
+    var nations: [Nation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        
+        for index in 0..<members.count {
+            let newNation = Nation(country: members[index], capital: capitals[index], ueseEuro: usesEuro[index])
+            nations.append(newNation)
+        }
     }
     
     
@@ -58,7 +123,7 @@ class ViewController: UIViewController {
             let selectedIndexPath = tableView.indexPathForSelectedRow!
             
             // set the data of destination from indexPath.row
-            destination.countryName = members[selectedIndexPath.row]
+            destination.nation = nations[selectedIndexPath.row]
         } else if segue.identifier == "AddDetail" {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 
@@ -77,17 +142,17 @@ class ViewController: UIViewController {
         // check to see if the data's indexPath is nil or not (if is nil, it means that it is a new data)
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
             // if indexPath is not nil, change the data from the existed indexPath
-            members[selectedIndexPath.row] = source.countryName
+            nations[selectedIndexPath.row] = source.nation
             
             // automatic reload the tableView
             tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
         } else {
             // if is nil, append new data from source to members array
             // get newIndexPath
-            let newIndexPath = IndexPath(row: members.count, section: 0)
+            let newIndexPath = IndexPath(row: nations.count, section: 0)
             
             // append data to members array
-            members.append(source.countryName)
+            nations.append(source.nation)
             
             // insert the row into the new IndexPath at the bottom of the tableView
             tableView.insertRows(at: [newIndexPath], with: .bottom)
@@ -98,19 +163,45 @@ class ViewController: UIViewController {
     }
 
 
+    
+    @IBAction func editBarButtonPressed(_ sender: UIBarButtonItem) {
+        if tableView.isEditing {
+            tableView.setEditing(false, animated: true)
+            sender.title = "Edit"
+            addBarButton.isEnabled = true
+        } else {
+            tableView.setEditing(true, animated: true)
+            sender.title = "Done"
+            addBarButton.isEnabled = false
+        }
+    }
+    
+    
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return members.count
+        return nations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = members[indexPath.row]
+        cell.textLabel?.text = nations[indexPath.row].country
+        cell.detailTextLabel?.text = "Captial: \(nations[indexPath.row].capital)"
         return cell
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            nations.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
     
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let itemToMove = nations[sourceIndexPath.row]
+        nations.remove(at: sourceIndexPath.row)
+        nations.insert(itemToMove, at: destinationIndexPath.row)
+    }
 }
 
