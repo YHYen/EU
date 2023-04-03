@@ -13,6 +13,92 @@ class ViewController: UIViewController {
     @IBOutlet weak var editBarButton: UIBarButtonItem!
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
+
+//    var members = ["Austria",
+//                  "Belgium",
+//                  "Bulgaria",
+//                  "Croatia",
+//                  "Cyprus",
+//                  "Czechia",
+//                  "Denmark",
+//                  "Estonia",
+//                  "Finland",
+//                  "France",
+//                  "Germany",
+//                  "Greece",
+//                  "Hungary",
+//                  "Ireland",
+//                  "Italy",
+//                  "Latvia",
+//                  "Lithuania",
+//                  "Luxembourg",
+//                  "Malta",
+//                  "Netherlands",
+//                  "Poland",
+//                  "Portugal",
+//                  "Romania",
+//                  "Slovakia",
+//                  "Slovenia",
+//                  "Spain",
+//                  "Sweden",
+//                  "United Kingdom"]
+//    var capitals = ["Vienna",
+//                    "Brussels",
+//                    "Sofia",
+//                    "Zagreb",
+//                    "Nicosia",
+//                    "Prague",
+//                    "Copenhagen",
+//                    "Tallinn",
+//                    "Helsinki",
+//                    "Paris",
+//                    "Berlin",
+//                    "Athens",
+//                    "Budapest",
+//                    "Dublin",
+//                    "Rome",
+//                    "Riga",
+//                    "Vilnius",
+//                    "Luxembourg (city)",
+//                    "Valetta",
+//                    "Amsterdam",
+//                    "Warsaw",
+//                    "Lisbon",
+//                    "Bucharest",
+//                    "Bratislava",
+//                    "Ljubljana",
+//                    "Madrid",
+//                    "Stockholm",
+//                    "London"]
+//    var usesEuro = [true,
+//                    true,
+//                    false,
+//                    false,
+//                    true,
+//                    false,
+//                    false,
+//                    true,
+//                    true,
+//                    true,
+//                    true,
+//                    true,
+//                    false,
+//                    true,
+//                    true,
+//                    true,
+//                    true,
+//                    true,
+//                    true,
+//                    true,
+//                    false,
+//                    true,
+//                    false,
+//                    true,
+//                    true,
+//                    true,
+//                    false,
+//                    false]
+    
     var nations: [Nation] = []
     
     override func viewDidLoad() {
@@ -21,6 +107,10 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
+//        for index in 0..<members.count {
+//            let newNation = Nation(country: members[index], capital: capitals[index], usesEuro: usesEuro[index])
+//            nations.append(newNation)
+//        }
         loadData()
     }
     
@@ -123,15 +213,24 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension ViewController: UITableViewDelegate, UITableViewDataSource, ListTableViewCellDelegate {
+    
+    func euroButtonToggle(sender: ListTableViewCell) {
+        if let selectedIndexPath = tableView.indexPath(for: sender) {
+            nations[selectedIndexPath.row].usesEuro = !nations[selectedIndexPath.row].usesEuro
+            tableView.reloadRows(at: [selectedIndexPath], with: .automatic)
+            saveData()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = nations[indexPath.row].country
-        cell.detailTextLabel?.text = "Captial: \(nations[indexPath.row].capital)"
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! ListTableViewCell
+        cell.delegate = self
+        cell.nation = nations[indexPath.row]
         return cell
     }
     
@@ -148,6 +247,11 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         nations.remove(at: sourceIndexPath.row)
         nations.insert(itemToMove, at: destinationIndexPath.row)
         saveData()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }
 

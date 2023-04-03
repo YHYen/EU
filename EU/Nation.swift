@@ -10,5 +10,5 @@ import Foundation
 struct Nation: Codable {
     var country: String
     var capital: String
-    var ueseEuro: Bool
+    var usesEuro: Bool
 }

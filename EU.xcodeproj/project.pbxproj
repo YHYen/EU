@@ -15,6 +15,7 @@
 		2CCBCE9329D8C7DE00638D45 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CCBCE9129D8C7DE00638D45 /* LaunchScreen.storyboard */; };
 		2CCBCE9D29D8DB6C00638D45 /* CountryDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCBCE9C29D8DB6C00638D45 /* CountryDetailTableViewController.swift */; };
 		2CCBCEA129D96C3E00638D45 /* Nation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCBCEA029D96C3E00638D45 /* Nation.swift */; };
+		2CCBCEA729DA9C4C00638D45 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCBCEA629DA9C4C00638D45 /* ListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		2CCBCE9429D8C7DE00638D45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CCBCE9C29D8DB6C00638D45 /* CountryDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailTableViewController.swift; sourceTree = "<group>"; };
 		2CCBCEA029D96C3E00638D45 /* Nation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nation.swift; sourceTree = "<group>"; };
+		2CCBCEA629DA9C4C00638D45 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				2CCBCEA029D96C3E00638D45 /* Nation.swift */,
 				2CCBCE8A29D8C7DD00638D45 /* ViewController.swift */,
 				2CCBCE9C29D8DB6C00638D45 /* CountryDetailTableViewController.swift */,
+				2CCBCEA629DA9C4C00638D45 /* ListTableViewCell.swift */,
 				2CCBCE8C29D8C7DD00638D45 /* Main.storyboard */,
 				2CCBCE8F29D8C7DE00638D45 /* Assets.xcassets */,
 				2CCBCE9129D8C7DE00638D45 /* LaunchScreen.storyboard */,
@@ -149,6 +152,7 @@
 				2CCBCEA129D96C3E00638D45 /* Nation.swift in Sources */,
 				2CCBCE8929D8C7DD00638D45 /* SceneDelegate.swift in Sources */,
 				2CCBCE9D29D8DB6C00638D45 /* CountryDetailTableViewController.swift in Sources */,
+				2CCBCEA729DA9C4C00638D45 /* ListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

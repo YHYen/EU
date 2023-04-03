@@ -20,17 +20,17 @@ class CountryDetailTableViewController: UITableViewController {
         super.viewDidLoad()
         
         if nation == nil {
-            nation = Nation(country: "", capital: "", ueseEuro: false)
+            nation = Nation(country: "", capital: "", usesEuro: false)
         }
         
         
         countryTextField.text = nation.country
         capitalTextField.text = nation.capital
-        euroSwitch.isOn = nation.ueseEuro
+        euroSwitch.isOn = nation.usesEuro
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        nation = Nation(country: countryTextField.text!, capital: capitalTextField.text!, ueseEuro: euroSwitch.isOn)
+        nation = Nation(country: countryTextField.text!, capital: capitalTextField.text!, usesEuro: euroSwitch.isOn)
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
